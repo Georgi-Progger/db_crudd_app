@@ -1,74 +1,66 @@
 package cruadapp.repository.base;
 
 import cruadapp.model.Skill;
+import cruadapp.model.Specialty;
 import cruadapp.model.Status;
-import cruadapp.repository.SkillRepository;
+import cruadapp.repository.SpecialtyRepository;
 import cruadapp.repository.base.util.Connect;
-import cruadapp.service.SkillService;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.sql.*;
 
+public class SpecialtyIml implements SpecialtyRepository {
+    public static SpecialtyIml specialtyIml;
+    private SpecialtyIml(){}
 
-public class SkillIml implements SkillRepository {
-
-    public static SkillIml skillIml;
-    private SkillIml() {
-    }
-
-    public static synchronized SkillIml getSkillIml(){
-        if (skillIml == null){
-            skillIml = new SkillIml();
+    public static synchronized SpecialtyIml getSpecialtyIml(){
+        if (specialtyIml == null){
+            specialtyIml = new SpecialtyIml();
         }
-        return skillIml;
+        return specialtyIml;
     }
 
     @Override
-    public Skill getById(Integer integer){
-        String SQL = "SELECT * FROM skills WHERE id = ?";
-        Skill skill = null;
+    public Specialty getById(Integer integer) {
+        String SQL = "SELECT * FROM specialty WHERE id = ?";
+        Specialty specialty = null;
         try(Connection connection = Connect.getConnection();
             PreparedStatement statement = connection.prepareStatement(SQL)) {
             statement.setInt(1,integer);
             ResultSet resultSet = statement.executeQuery();
 
             if (resultSet.next()){
-                skill = new Skill(resultSet.getInt("id"), resultSet.getString("name"));
-                if (resultSet.getBoolean("active")) {
-                    skill.setStatus(Status.ACTIVE);
-                } else {
-                    skill.setStatus(Status.DELETED);
-                }
-            }else {
-                System.out.println("Умения с выбранным id нет.");
+                specialty = new Specialty(resultSet.getInt("id"),resultSet.getString("name"));
             }
 
             resultSet.close();
             connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
-        }finally {
-            return skill;
         }
+        return specialty;
     }
 
     @Override
-    public List<Skill> getAll() {
-        List<Skill> skills = new ArrayList<>();
-        String SQL = "SELECT * FROM skills";
-        Skill skill = null;
+    public List<Specialty> getAll() {
+        List<Specialty> specialties = new ArrayList<>();
+        String SQL = "SELECT * FROM specialty";
+        Specialty specialty = null;
         try(Connection connection = Connect.getConnection();
             PreparedStatement statement = connection.prepareStatement(SQL)) {
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()){
-                skill = new Skill(resultSet.getInt("id"), resultSet.getString("name"));
+                specialty = new Specialty(resultSet.getInt("id"), resultSet.getString("name"));
                 if (resultSet.getBoolean("active")) {
-                    skill.setStatus(Status.ACTIVE);
+                    specialty.setStatus(Status.ACTIVE);
                 } else {
-                    skill.setStatus(Status.DELETED);
+                    specialty.setStatus(Status.DELETED);
                 }
-                skills.add(skill);
+                specialties.add(specialty);
             }
 
             resultSet.close();
@@ -76,56 +68,55 @@ public class SkillIml implements SkillRepository {
         } catch (SQLException e) {
             e.printStackTrace();
         }finally {
-            return skills;
+            return specialties;
         }
     }
 
     @Override
-    public Skill save(Skill skill) {
-        String SQL = "insert into skills (id,name,active,developer_id) values (?,?,true,?)";
+    public Specialty save(Specialty specialty) {
+        String SQL = "insert into specialty (id,name,active,developer_id) values (?,?,true,?)";
         try(Connection connection = Connect.getConnection();
             PreparedStatement statement = connection.prepareStatement(SQL)) {
-            statement.setInt(1, skill.getId());
-            statement.setString(2, skill.getName());
-            statement.setInt(3,skill.getDeveloperId());
+            statement.setInt(1, specialty.getId());
+            statement.setString(2, specialty.getName());
+            statement.setInt(3,specialty.getDeveloperId());
             statement.executeUpdate();
 
             connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }finally {
-            return skill;
+            return specialty;
         }
     }
 
     @Override
-    public Skill update(Skill skill) {
-        String SQL = "UPDATE skills SET NAME = ? WHERE id = ?";
+    public Specialty update(Specialty specialty) {
+        String SQL = "UPDATE specialty SET NAME = ? WHERE id = ?";
         try(Connection connection = Connect.getConnection();
             PreparedStatement statement = connection.prepareStatement(SQL)) {
-            statement.setString(1,skill.getName());
-            statement.setInt(2,skill.getId());
+            statement.setString(1,specialty.getName());
+            statement.setInt(2,specialty.getId());
 
 
 
             if (statement.getResultSet().next()){
                 statement.executeUpdate();
             }else {
-                System.out.println("Умения с выбранным id нет.");
+                System.out.println("Специальности с выбранным id нет.");
             }
 
             connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }finally {
-            return skill;
+            return specialty;
         }
-
     }
 
     @Override
     public void deleteById(Integer integer) {
-        String SQL = "UPDATE skills SET ACTIVE = false WHERE id = ?";
+        String SQL = "UPDATE specialty SET ACTIVE = false WHERE id = ?";
         try(Connection connection = Connect.getConnection();
             PreparedStatement statement = connection.prepareStatement(SQL)) {
             statement.setInt(1,integer);
@@ -135,7 +126,4 @@ public class SkillIml implements SkillRepository {
             e.printStackTrace();
         }
     }
-
-
 }
-

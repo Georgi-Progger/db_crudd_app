@@ -4,6 +4,15 @@ public class Specialty {
     private Integer id;
     private String specName;
     private Status status = Status.ACTIVE;
+    private Integer developerId;
+
+    public Integer getDeveloperId() {
+        return developerId;
+    }
+
+    public void setDeveloperId(Integer developerId) {
+        this.developerId = developerId;
+    }
 
     public Integer getId() {
         return id;
@@ -17,6 +26,16 @@ public class Specialty {
         return status;
     }
 
+    @Override
+    public String toString() {
+        return "Specialty{" +
+                "id=" + id +
+                ", specName='" + specName + '\'' +
+                ", status=" + status +
+                '}';
+    }
+
+    public Specialty(){}
     public Specialty(Integer id, String name) {
         this.id = id;
         this.specName = name;

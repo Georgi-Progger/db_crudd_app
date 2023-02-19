@@ -26,6 +26,19 @@ public class Developer {
         return skills;
     }
 
+    @Override
+    public String toString() {
+        return "Developer{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", status=" + status +
+                ", skills=" + skills +
+                ", specialty=" + specialty +
+                '}';
+    }
+
+    public Developer(){}
     public Developer(int id, String firstName, String lastName, List<Skill> skills, Specialty specialty) {
         this.id = id;
         this.firstName = firstName;
