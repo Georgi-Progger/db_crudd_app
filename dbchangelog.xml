@@ -8,22 +8,49 @@
 		http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd
 		http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
 		http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-latest.xsd">
-    <changeSet  id="1"  author="geor">
-        <createTable  tableName="department">
-            <column  name="id"  type="int">
+    <changeSet  id="9"  author="gr">
+
+        <createTable  tableName="skills">
+            <column  name="id"  type="int" autoIncrement="true">
                 <constraints  primaryKey="true"  nullable="false"/>
             </column>
             <column  name="name"  type="varchar(50)">
                 <constraints  nullable="false"/>
             </column>
-            <column  name="active"  type="boolean"  defaultValueBoolean="true"/>
-        </createTable>
-    </changeSet>
-    <changeSet id="add-column" author="geor">
-        <addColumn tableName="department">
-            <column  name="lastName"  type="varchar(50)">
+            <column  name="active"  type="boolean"  defaultValueBoolean="true">
+                <constraints nullable="false"/>
+            </column>
+            <column  name="developer_id"  type="int">
                 <constraints  nullable="false"/>
             </column>
-        </addColumn>
+        </createTable>
+        <createTable  tableName="specialty">
+            <column  name="id"  type="int" autoIncrement="true">
+                <constraints  primaryKey="true"  nullable="false"/>
+            </column>
+            <column  name="name"  type="varchar(50)">
+                <constraints  nullable="false"/>
+            </column>
+            <column  name="active"  type="boolean"  defaultValueBoolean="true">
+                <constraints nullable="false"/>
+            </column>
+            <column  name="developer_id"  type="int">
+                <constraints  nullable="false"/>
+            </column>
+        </createTable>
+        <createTable  tableName="developers">
+            <column  name="id"  type="int" autoIncrement="true">
+                <constraints  primaryKey="true"  nullable="false"/>
+            </column>
+            <column  name="firstname"  type="varchar(50)">
+                <constraints  nullable="false"/>
+            </column>
+            <column  name="lastname"  type="varchar(50)">
+                <constraints  nullable="false"/>
+            </column>
+            <column  name="active"  type="boolean"  defaultValueBoolean="true">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
     </changeSet>
 </databaseChangeLog>
