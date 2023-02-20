@@ -82,12 +82,11 @@ public class SkillIml implements SkillRepository {
 
     @Override
     public Skill save(Skill skill) {
-        String SQL = "insert into skills (id,name,active,developer_id) values (?,?,true,?)";
+        String SQL = "insert into skills (name,active,developer_id) values (?,true,?)";
         try(Connection connection = Connect.getConnection();
             PreparedStatement statement = connection.prepareStatement(SQL)) {
-            statement.setInt(1, skill.getId());
-            statement.setString(2, skill.getName());
-            statement.setInt(3,skill.getDeveloperId());
+            statement.setString(1, skill.getName());
+            statement.setInt(2,skill.getDeveloperId());
             statement.executeUpdate();
 
             connection.close();
@@ -106,13 +105,7 @@ public class SkillIml implements SkillRepository {
             statement.setString(1,skill.getName());
             statement.setInt(2,skill.getId());
 
-
-
-            if (statement.getResultSet().next()){
-                statement.executeUpdate();
-            }else {
-                System.out.println("Умения с выбранным id нет.");
-            }
+            statement.executeUpdate();
 
             connection.close();
         } catch (SQLException e) {

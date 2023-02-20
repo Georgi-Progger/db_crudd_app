@@ -74,12 +74,11 @@ public class SpecialtyIml implements SpecialtyRepository {
 
     @Override
     public Specialty save(Specialty specialty) {
-        String SQL = "insert into specialty (id,name,active,developer_id) values (?,?,true,?)";
+        String SQL = "insert into specialty (name,active,developer_id) values (?,true,?)";
         try(Connection connection = Connect.getConnection();
             PreparedStatement statement = connection.prepareStatement(SQL)) {
-            statement.setInt(1, specialty.getId());
-            statement.setString(2, specialty.getName());
-            statement.setInt(3,specialty.getDeveloperId());
+            statement.setString(1, specialty.getName());
+            statement.setInt(2,specialty.getDeveloperId());
             statement.executeUpdate();
 
             connection.close();
@@ -99,12 +98,7 @@ public class SpecialtyIml implements SpecialtyRepository {
             statement.setInt(2,specialty.getId());
 
 
-
-            if (statement.getResultSet().next()){
-                statement.executeUpdate();
-            }else {
-                System.out.println("Специальности с выбранным id нет.");
-            }
+            statement.executeUpdate();
 
             connection.close();
         } catch (SQLException e) {

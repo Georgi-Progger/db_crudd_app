@@ -84,12 +84,11 @@ public class DeveloperIml  implements DeveloperRepository {
 
     @Override
     public Developer save(Developer developer) {
-        String SQL = "insert into developers (id,firstname,lastname,active) values (?,?,?,true)";
+        String SQL = "insert into developers (firstname,lastname,active) values (?,?,true)";
         try(Connection connection = Connect.getConnection();
             PreparedStatement statement = connection.prepareStatement(SQL)) {
-            statement.setInt(1, developer.getId());
-            statement.setString(2, developer.getFirstName());
-            statement.setString(3,developer.getLastName());
+            statement.setString(1, developer.getFirstName());
+            statement.setString(2,developer.getLastName());
             statement.executeUpdate();
 
             connection.close();
@@ -109,14 +108,7 @@ public class DeveloperIml  implements DeveloperRepository {
             statement.setString(2,developer.getLastName());
             statement.setInt(3,developer.getId());
 
-
-
-            if (statement.getResultSet().next()){
-                statement.executeUpdate();
-            }else {
-                System.out.println("Разработчика с выбранным id нет.");
-            }
-
+            statement.executeUpdate();
             connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -140,7 +132,7 @@ public class DeveloperIml  implements DeveloperRepository {
     public List<Skill> getSkills(){
         String SQL = "SELECT skills.id, NAME " +
                 "FROM developers " +
-                "LEFT JOIN skills " +
+                "Inner JOIN skills " +
                 "ON developers.ID = skills.DEVELOPER_ID;";
         Skill skill = null;
         List<Skill> skills = new ArrayList<>();
@@ -164,7 +156,7 @@ public class DeveloperIml  implements DeveloperRepository {
     public Specialty getSpecialty(){
         String SQL = "SELECT specialty.id, NAME \n" +
                 "FROM developers \n" +
-                "LEFT JOIN specialty\n" +
+                "INNER JOIN specialty\n" +
                 "ON developers.ID = specialty.DEVELOPER_ID;";
         Specialty specialty = null;
         try(Connection connection = Connect.getConnection();
