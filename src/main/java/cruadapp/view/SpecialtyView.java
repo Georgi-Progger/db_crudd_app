@@ -24,9 +24,7 @@ public class SpecialtyView {
     private void writeNewSpecialty(){
         scanner = new Scanner(System.in);
         Specialty specialtyToSave = new Specialty();
-        System.out.println("Введите новый id Specialty");
-        Integer idSpecialty = scanner.nextInt();
-        specialtyToSave.setId(idSpecialty);
+
         System.out.println("Введите название Specialty");
         String nameSpecialty = scanner.next();
         specialtyToSave.setName(nameSpecialty);

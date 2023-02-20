@@ -24,9 +24,6 @@ public class SkillView {
     private void writeNewSkill(){
         scanner = new Scanner(System.in);
         Skill skillToSave = new Skill();
-        System.out.println("Введите новый id Skill");
-        Integer idSkill = scanner.nextInt();
-        skillToSave.setId(idSkill);
 
         System.out.println("Введите название Skill");
         String nameSkill = scanner.next();
@@ -42,11 +39,14 @@ public class SkillView {
 
     private void updateSkill(){
         scanner = new Scanner(System.in);
+        Skill skillToSave = new Skill();
         System.out.println("Введите id Skill для обновления ");
         Integer id = scanner.nextInt();
+        skillToSave.setId(id);
         System.out.println("Введите новое название Skill");
         String nameSkill = scanner.next();
-        Skill skillToSave = new Skill(id, nameSkill);
+        skillToSave.setName(nameSkill);
+
 
         skillController.update(skillToSave);
     }

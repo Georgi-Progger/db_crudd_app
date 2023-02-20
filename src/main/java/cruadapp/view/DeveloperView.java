@@ -34,23 +34,18 @@ public class DeveloperView {
         Developer developerToSave = new Developer();
 
 
-        System.out.println("Введите новое id для Developer");
-        Integer idDeveloper = scanner.nextInt();
-        developerToSave.setId(idDeveloper);
-
         System.out.println("Введите firstName для Developer");
         String firstNameDeveloper = scanner.nextLine();
         developerToSave.setFirstName(firstNameDeveloper);
 
         System.out.println("Введите lastName для Developer");
         String lastNameDeveloper = scanner.nextLine();
-        developerToSave.setFirstName(lastNameDeveloper);
+        developerToSave.setLastName(lastNameDeveloper);
 
-        System.out.println("Введите Id Skill для Developer");
-        List<Skill> skill = skillRead();
-        developerToSave.setSkills(skill);
 
-        System.out.println("Введите Id SpecialtyIml для Developer");
+        List<Skill> skills = skillRead();
+        developerToSave.setSkills(skills);
+
         Specialty specialty = specialtyRead();
         developerToSave.setSpecialty(specialty);
 
@@ -59,23 +54,21 @@ public class DeveloperView {
 
     private void updateDeveloper(){
         scanner = new Scanner(System.in);
+        Developer developerToSave = new Developer();
+
 
         System.out.println("Введите id Developer для обновления ");
         Integer id = scanner.nextInt();
+        developerToSave.setId(id);
 
         System.out.println("Введите новое firstName Developer");
         String firstNameDeveloper = scanner.next();
+        developerToSave.setFirstName(firstNameDeveloper);
 
         System.out.println("Введите новое lastName Developer");
         String lastNameDeveloper = scanner.nextLine();
+        developerToSave.setLastName(lastNameDeveloper);
 
-        System.out.println("Введите новое Id Skill для Developer");
-        List<Skill>  skillDeveloper = skillRead();
-
-        System.out.println("Введите новое название Developer");
-        Specialty specialtyDeveloper = specialtyRead();
-
-        Developer developerToSave = new Developer(id, firstNameDeveloper, lastNameDeveloper, skillDeveloper, specialtyDeveloper);
 
         developerController.update(developerToSave);
     }
