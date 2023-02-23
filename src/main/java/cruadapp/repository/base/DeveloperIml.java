@@ -5,7 +5,7 @@ import cruadapp.model.Skill;
 import cruadapp.model.Specialty;
 import cruadapp.model.Status;
 import cruadapp.repository.DeveloperRepository;
-import cruadapp.repository.base.util.Connect;
+import cruadapp.config.Connect;
 
 import java.sql.*;
 import java.util.ArrayList;

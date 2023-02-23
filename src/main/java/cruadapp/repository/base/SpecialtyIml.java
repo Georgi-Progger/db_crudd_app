@@ -1,10 +1,9 @@
 package cruadapp.repository.base;
 
-import cruadapp.model.Skill;
 import cruadapp.model.Specialty;
 import cruadapp.model.Status;
 import cruadapp.repository.SpecialtyRepository;
-import cruadapp.repository.base.util.Connect;
+import cruadapp.config.Connect;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

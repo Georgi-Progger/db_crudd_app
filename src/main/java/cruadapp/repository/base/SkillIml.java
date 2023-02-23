@@ -3,8 +3,7 @@ package cruadapp.repository.base;
 import cruadapp.model.Skill;
 import cruadapp.model.Status;
 import cruadapp.repository.SkillRepository;
-import cruadapp.repository.base.util.Connect;
-import cruadapp.service.SkillService;
+import cruadapp.config.Connect;
 
 import java.util.ArrayList;
 import java.util.List;
